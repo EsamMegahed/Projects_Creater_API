@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','username','email','password']
-        #extra_kwargs = {'password':{'write_only':True,'required':True}}
+        fields = ['id','username','password','email']
+        extra_kwargs = {'password':{'write_only':True,'required':True}}
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,7 +15,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class ProjectsSerializer(serializers.ModelSerializer):
-    task_project = TaskSerializer(many=True)
+    project_tasks = TaskSerializer(many=True)
 
     class Meta:
         model = Projects
@@ -25,8 +25,8 @@ class ProjectsSerializer(serializers.ModelSerializer):
             "title",
             "project_description",
             "date",
-            "task_project",
-            "project_complete",
+            "project_tasks",
+            
         ]
 
     # def create(self, validated_data):
